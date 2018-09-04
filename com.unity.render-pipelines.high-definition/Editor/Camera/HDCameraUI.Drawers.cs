@@ -84,14 +84,13 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
                 CED.Select(
                     (s, d, o) => s.frameSettingsUI,
                     (s, d, o) => d.frameSettings,
-                    FrameSettingsUI.SectionRenderingPasses,
-                    FrameSettingsUI.SectionRenderingSettings,
-                    FrameSettingsUI.SectionLightingSettings),
-                CED.Select(
-                    (s, d, o) => s.frameSettingsUI.lightLoopSettings,
-                    (s, d, o) => d.frameSettings.lightLoopSettings,
-                    LightLoopSettingsUI.SectionLightLoopSettings));
-        
+                    FrameSettingsUI.Inspector(withXR: false)));
+
+        static void Drawer_FieldBackgroundColorHDR(HDCameraUI s, SerializedHDCamera p, Editor owner)
+        {
+            EditorGUILayout.PropertyField(p.backgroundColorHDR, backgroundColorContent);
+        }
+
         static void Drawer_FieldVolumeLayerMask(HDCameraUI s, SerializedHDCamera p, Editor owner)
         {
             EditorGUILayout.PropertyField(p.volumeLayerMask, volumeLayerMaskContent);

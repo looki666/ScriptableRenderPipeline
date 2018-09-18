@@ -49,15 +49,15 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
             GUILayout.BeginVertical();
             if (s.isSectionExpandedEnableTileAndCluster.target)
             {
-                FrameSettingsUI.DrawProperty(p.enableFptlForForwardOpaque, fptlForForwardOpaqueContent, withOverride, a => p.overridesFptlForForwardOpaque = a, () => p.overridesFptlForForwardOpaque);
-                FrameSettingsUI.DrawProperty(p.enableBigTilePrepass, bigTilePrepassContent, withOverride, a => p.overridesBigTilePrepass = a, () => p.overridesBigTilePrepass);
-                FrameSettingsUI.DrawProperty(p.enableComputeLightEvaluation, computeLightEvaluationContent, withOverride, a => p.overridesComputeLightEvaluation = a, () => p.overridesComputeLightEvaluation);
+                FrameSettingsUI.DrawProperty(p.enableFptlForForwardOpaque, fptlForForwardOpaqueContent, withOverride, a => p.overridesFptlForForwardOpaque = a, () => p.overridesFptlForForwardOpaque, null);
+                FrameSettingsUI.DrawProperty(p.enableBigTilePrepass, bigTilePrepassContent, withOverride, a => p.overridesBigTilePrepass = a, () => p.overridesBigTilePrepass, null);
+                FrameSettingsUI.DrawProperty(p.enableComputeLightEvaluation, computeLightEvaluationContent, withOverride, a => p.overridesComputeLightEvaluation = a, () => p.overridesComputeLightEvaluation, null);
                 GUILayout.BeginVertical();
                 if (s.isSectionExpandedComputeLightEvaluation.target)
                 {
                     EditorGUI.indentLevel++;
-                    FrameSettingsUI.DrawProperty(p.enableComputeLightVariants, computeLightVariantsContent, withOverride, a => p.overridesComputeLightVariants = a, () => p.overridesComputeLightVariants);
-                    FrameSettingsUI.DrawProperty(p.enableComputeMaterialVariants, computeMaterialVariantsContent, withOverride, a => p.overridesComputeMaterialVariants  = a, () => p.overridesComputeMaterialVariants);
+                    FrameSettingsUI.DrawProperty(p.enableComputeLightVariants, computeLightVariantsContent, withOverride, a => p.overridesComputeLightVariants = a, () => p.overridesComputeLightVariants, null);
+                    FrameSettingsUI.DrawProperty(p.enableComputeMaterialVariants, computeMaterialVariantsContent, withOverride, a => p.overridesComputeMaterialVariants  = a, () => p.overridesComputeMaterialVariants, null);
                     EditorGUI.indentLevel--;
                 }
                 GUILayout.EndVertical();

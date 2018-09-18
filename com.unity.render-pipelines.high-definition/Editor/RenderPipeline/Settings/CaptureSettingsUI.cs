@@ -43,21 +43,21 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
 
         static void Drawer_SectionCaptureSettings(CaptureSettingsUI s, SerializedCaptureSettings p, Editor owner, bool withOverride)
         {
-            FrameSettingsUI.DrawProperty(p.clearColorMode, clearColorModeContent, withOverride, a => p.overridesClearColorMode = a, () => p.overridesClearColorMode);
-            FrameSettingsUI.DrawProperty(p.backgroundColorHDR, backgroundColorHDRContent, withOverride, a => p.overridesBackgroundColorHDR = a, () => p.overridesBackgroundColorHDR);
-            FrameSettingsUI.DrawProperty(p.clearDepth, clearDepthContent, withOverride, a => p.overridesClearDepth = a, () => p.overridesClearDepth);
-            FrameSettingsUI.DrawProperty(p.renderingPath, renderingPathContent, withOverride, a => p.overridesRenderingPath = a, () => p.overridesRenderingPath);
-            FrameSettingsUI.DrawProperty(p.volumeLayerMask, volumeLayerMaskContent, withOverride, a => p.overridesVolumeLayerMask = a, () => p.overridesVolumeLayerMask);
-            FrameSettingsUI.DrawProperty(p.volumeAnchorOverride, volumeAnchorOverrideContent, withOverride, a => p.overridesVolumeAnchorOverride = a, () => p.overridesVolumeAnchorOverride);
-            FrameSettingsUI.DrawProperty(p.aperture, apertureContent, withOverride, a => p.overridesAperture = a, () => p.overridesAperture);
-            FrameSettingsUI.DrawProperty(p.shutterSpeed, shutterSpeedContent, withOverride, a => p.overridesShutterSpeed = a, () => p.overridesShutterSpeed);
-            FrameSettingsUI.DrawProperty(p.iso, isoContent, withOverride, a => p.overridesIso = a, () => p.overridesIso);
-            FrameSettingsUI.DrawProperty(p.shadowDistance, shadowDistanceContent, withOverride, a => p.overridesShadowDistance = a, () => p.overridesShadowDistance);
-            FrameSettingsUI.DrawProperty(p.farClipPlane, farClipPlaneContent, withOverride, a => p.overridesFarClip = a, () => p.overridesFarClip);
-            FrameSettingsUI.DrawProperty(p.nearClipPlane, nearClipPlaneContent, withOverride, a => p.overridesNearClip = a, () => p.overridesNearClip);
-            FrameSettingsUI.DrawProperty(p.fieldOfview, fieldOfviewContent, withOverride, a => p.overridesFieldOfview = a, () => p.overridesFieldOfview);
-            FrameSettingsUI.DrawProperty(p.useOcclusionCulling, useOcclusionCullingContent, withOverride, a => p.overridesUseOcclusionCulling = a, () => p.overridesUseOcclusionCulling);
-            FrameSettingsUI.DrawProperty(p.cullingMask, cullingMaskContent, withOverride, a => p.overridesCullingMask = a, () => p.overridesCullingMask);
+            FrameSettingsUI.DrawProperty(p.clearColorMode, clearColorModeContent, withOverride, a => p.overridesClearColorMode = a, () => p.overridesClearColorMode, null);
+            FrameSettingsUI.DrawProperty(p.backgroundColorHDR, backgroundColorHDRContent, withOverride, a => p.overridesBackgroundColorHDR = a, () => p.overridesBackgroundColorHDR, null);
+            FrameSettingsUI.DrawProperty(p.clearDepth, clearDepthContent, withOverride, a => p.overridesClearDepth = a, () => p.overridesClearDepth, null);
+            FrameSettingsUI.DrawProperty(p.renderingPath, renderingPathContent, withOverride, a => p.overridesRenderingPath = a, () => p.overridesRenderingPath, null);
+            FrameSettingsUI.DrawProperty(p.volumeLayerMask, volumeLayerMaskContent, withOverride, a => p.overridesVolumeLayerMask = a, () => p.overridesVolumeLayerMask, null);
+            FrameSettingsUI.DrawProperty(p.volumeAnchorOverride, volumeAnchorOverrideContent, withOverride, a => p.overridesVolumeAnchorOverride = a, () => p.overridesVolumeAnchorOverride, null);
+            FrameSettingsUI.DrawProperty(p.aperture, apertureContent, withOverride, a => p.overridesAperture = a, () => p.overridesAperture, null);
+            FrameSettingsUI.DrawProperty(p.shutterSpeed, shutterSpeedContent, withOverride, a => p.overridesShutterSpeed = a, () => p.overridesShutterSpeed, null);
+            FrameSettingsUI.DrawProperty(p.iso, isoContent, withOverride, a => p.overridesIso = a, () => p.overridesIso, null);
+            FrameSettingsUI.DrawProperty(p.shadowDistance, shadowDistanceContent, withOverride, a => p.overridesShadowDistance = a, () => p.overridesShadowDistance, null);
+            FrameSettingsUI.DrawProperty(p.farClipPlane, farClipPlaneContent, withOverride, a => p.overridesFarClip = a, () => p.overridesFarClip, null);
+            FrameSettingsUI.DrawProperty(p.nearClipPlane, nearClipPlaneContent, withOverride, a => p.overridesNearClip = a, () => p.overridesNearClip, null);
+            FrameSettingsUI.DrawProperty(p.fieldOfview, fieldOfviewContent, withOverride, a => p.overridesFieldOfview = a, () => p.overridesFieldOfview, null);
+            FrameSettingsUI.DrawProperty(p.useOcclusionCulling, useOcclusionCullingContent, withOverride, a => p.overridesUseOcclusionCulling = a, () => p.overridesUseOcclusionCulling, null);
+            FrameSettingsUI.DrawProperty(p.cullingMask, cullingMaskContent, withOverride, a => p.overridesCullingMask = a, () => p.overridesCullingMask, null);
         }
     }
 }

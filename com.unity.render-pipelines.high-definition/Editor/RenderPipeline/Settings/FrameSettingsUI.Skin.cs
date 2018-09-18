@@ -15,7 +15,7 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
         static readonly GUIContent transparentPostpassContent = CoreEditorUtils.GetContent("Enable Transparent Postpass");
         static readonly GUIContent motionVectorContent = CoreEditorUtils.GetContent("Enable Motion Vectors");
         static readonly GUIContent objectMotionVectorsContent = CoreEditorUtils.GetContent("Enable Object Motion Vectors");
-        static readonly GUIContent decalsContent = CoreEditorUtils.GetContent("Enable DBuffer");
+        static readonly GUIContent decalsContent = CoreEditorUtils.GetContent("Enable Decals");
         static readonly GUIContent roughRefractionContent = CoreEditorUtils.GetContent("Enable Rough Refraction");
         static readonly GUIContent distortionContent = CoreEditorUtils.GetContent("Enable Distortion");
         static readonly GUIContent postprocessContent = CoreEditorUtils.GetContent("Enable Postprocess");
@@ -36,5 +36,7 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
         static readonly GUIContent atmosphericScatteringContent = CoreEditorUtils.GetContent("Enable Atmospheric Scattering");
         static readonly GUIContent volumetricContent = CoreEditorUtils.GetContent("    Enable Volumetric");
         static readonly GUIContent lightLayerContent = CoreEditorUtils.GetContent("Enable LightLayers");
+
+        static readonly GUIContent overrideTooltip = CoreEditorUtils.GetContent("|Override this setting component.");
     }
 }

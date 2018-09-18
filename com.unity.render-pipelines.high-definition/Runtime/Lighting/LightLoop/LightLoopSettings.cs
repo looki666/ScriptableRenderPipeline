@@ -3,9 +3,23 @@ using System.Collections.Generic;
 
 namespace UnityEngine.Experimental.Rendering.HDPipeline
 {
+    [Flags]
+    public enum LightLoopSettingsOverrides
+    {
+        FptlForForwardOpaque = 1 << 0,
+        BigTilePrepass = 1 << 1,
+        ComputeLightEvaluation = 1 << 2,
+        ComputeLightVariants = 1 << 3,
+        ComputeMaterialVariants = 1 << 4,
+        TileAndCluster = 1 << 5,
+        //Fptl = 1 << 6, //isFptlEnabled set up by system
+    }
+
     [Serializable]
     public class LightLoopSettings
     {
+        public LightLoopSettingsOverrides overrides;
+
         // Setup by the users
         public bool enableTileAndCluster = true;
         public bool enableComputeLightEvaluation = true;
@@ -21,15 +35,15 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
 
         public void CopyTo(LightLoopSettings lightLoopSettings)
         {
-            lightLoopSettings.enableTileAndCluster          = this.enableTileAndCluster;
-            lightLoopSettings.enableComputeLightEvaluation  = this.enableComputeLightEvaluation;
-            lightLoopSettings.enableComputeLightVariants    = this.enableComputeLightVariants;
+            lightLoopSettings.enableTileAndCluster = this.enableTileAndCluster;
+            lightLoopSettings.enableComputeLightEvaluation = this.enableComputeLightEvaluation;
+            lightLoopSettings.enableComputeLightVariants = this.enableComputeLightVariants;
             lightLoopSettings.enableComputeMaterialVariants = this.enableComputeMaterialVariants;
 
-            lightLoopSettings.enableFptlForForwardOpaque    = this.enableFptlForForwardOpaque;
-            lightLoopSettings.enableBigTilePrepass          = this.enableBigTilePrepass;
+            lightLoopSettings.enableFptlForForwardOpaque = this.enableFptlForForwardOpaque;
+            lightLoopSettings.enableBigTilePrepass = this.enableBigTilePrepass;
 
-            lightLoopSettings.isFptlEnabled                 = this.isFptlEnabled;
+            lightLoopSettings.isFptlEnabled = this.isFptlEnabled;
         }
 
         // aggregateFrameSettings already contain the aggregation of RenderPipelineSettings and FrameSettings (regular and/or debug)
@@ -40,12 +54,12 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
             if (aggregate == null)
                 aggregate = new LightLoopSettings();
 
-            aggregate.enableTileAndCluster          = frameSettings.lightLoopSettings.enableTileAndCluster;
-            aggregate.enableComputeLightEvaluation  = frameSettings.lightLoopSettings.enableComputeLightEvaluation;
-            aggregate.enableComputeLightVariants    = frameSettings.lightLoopSettings.enableComputeLightVariants;
+            aggregate.enableTileAndCluster = frameSettings.lightLoopSettings.enableTileAndCluster;
+            aggregate.enableComputeLightEvaluation = frameSettings.lightLoopSettings.enableComputeLightEvaluation;
+            aggregate.enableComputeLightVariants = frameSettings.lightLoopSettings.enableComputeLightVariants;
             aggregate.enableComputeMaterialVariants = frameSettings.lightLoopSettings.enableComputeMaterialVariants;
-            aggregate.enableFptlForForwardOpaque    = frameSettings.lightLoopSettings.enableFptlForForwardOpaque;
-            aggregate.enableBigTilePrepass          = frameSettings.lightLoopSettings.enableBigTilePrepass;
+            aggregate.enableFptlForForwardOpaque = frameSettings.lightLoopSettings.enableFptlForForwardOpaque;
+            aggregate.enableBigTilePrepass = frameSettings.lightLoopSettings.enableBigTilePrepass;
 
             // Deferred opaque are always using Fptl. Forward opaque can use Fptl or Cluster, transparent use cluster.
             // When MSAA is enabled we disable Fptl as it become expensive compare to cluster

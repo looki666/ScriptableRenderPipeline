@@ -83,7 +83,7 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
             High,
             Count
         } // enum VolumetricLightingPreset
-
+       
         public struct VBufferParameters
         {
             public Vector4 resolution;
@@ -145,6 +145,10 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
         // and contains arbitrary data. Therefore, we must initialize it before use.
         Vector3Int m_PreviousResolutionOfHistoryBuffer = Vector3Int.zero;
 
+        Vector4[] m_PackedCoeffs;
+
+        ZonalHarmonicsL2 m_PhaseZH;
+
         public void Build(HDRenderPipelineAsset asset)
         {
             m_SupportVolumetrics = asset.renderPipelineSettings.supportVolumetrics;
@@ -157,6 +161,10 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
 
             m_VolumeVoxelizationCS = asset.renderPipelineResources.volumeVoxelizationCS;
             m_VolumetricLightingCS = asset.renderPipelineResources.volumetricLightingCS;
+
+            m_PackedCoeffs = new Vector4[7];
+            m_PhaseZH = new ZonalHarmonicsL2();
+            m_PhaseZH.coeffs = new float[3];
 
             CreateBuffers();
         }
@@ -412,10 +420,11 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
         {
             SphericalHarmonicsL2 probeSH = SphericalHarmonicMath.UndoCosineRescaling(RenderSettings.ambientProbe);
                                  probeSH = SphericalHarmonicMath.RescaleCoefficients(probeSH, dimmer);
-            ZonalHarmonicsL2     phaseZH = ZonalHarmonicsL2.GetCornetteShanksPhaseFunction(anisotropy);
-            SphericalHarmonicsL2 finalSH = SphericalHarmonicMath.PremultiplyCoefficients(SphericalHarmonicMath.Convolve(probeSH, phaseZH));
+            ZonalHarmonicsL2.GetCornetteShanksPhaseFunction(m_PhaseZH, anisotropy);
+            SphericalHarmonicsL2 finalSH = SphericalHarmonicMath.PremultiplyCoefficients(SphericalHarmonicMath.Convolve(probeSH, m_PhaseZH));
 
-            cmd.SetGlobalVectorArray(HDShaderIDs._AmbientProbeCoeffs, SphericalHarmonicMath.PackCoefficients(finalSH));
+            SphericalHarmonicMath.PackCoefficients(m_PackedCoeffs, finalSH);
+            cmd.SetGlobalVectorArray(HDShaderIDs._AmbientProbeCoeffs, m_PackedCoeffs);
         }
 
         float CornetteShanksPhasePartConstant(float anisotropy)

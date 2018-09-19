@@ -42,29 +42,26 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
 
         static void Drawer_SectionLightLoopSettings(LightLoopSettingsUI s, SerializedLightLoopSettings p, Editor owner, bool withOverride)
         {
-            // Uncomment if you re-enable LIGHTLOOP_SINGLE_PASS multi_compile in lit*.shader
-            //FrameSettingsUI.DrawProperty(p.enableTileAndCluster, tileAndClusterContent, withOverride, a => p.overridesTileAndCluster = a, () => p.overridesTileAndCluster);
-            //EditorGUI.indentLevel++;
+            //RenderPipelineSettings hdrpSettings = (GraphicsSettings.renderPipelineAsset as HDRenderPipelineAsset).renderPipelineSettings;
+            OverridableSettingsArea area = new OverridableSettingsArea();
 
-            GUILayout.BeginVertical();
+            // Uncomment if you re-enable LIGHTLOOP_SINGLE_PASS multi_compile in lit*.shader
+            //area.Add(p.enableTileAndCluster, tileAndClusterContent, a => p.overridesTileAndCluster = a, () => p.overridesTileAndCluster);
+            //and add indent:1 or indent:2 regarding indentation you want
+            
             if (s.isSectionExpandedEnableTileAndCluster.target)
             {
-                FrameSettingsUI.DrawProperty(p.enableFptlForForwardOpaque, fptlForForwardOpaqueContent, withOverride, a => p.overridesFptlForForwardOpaque = a, () => p.overridesFptlForForwardOpaque, null);
-                FrameSettingsUI.DrawProperty(p.enableBigTilePrepass, bigTilePrepassContent, withOverride, a => p.overridesBigTilePrepass = a, () => p.overridesBigTilePrepass, null);
-                FrameSettingsUI.DrawProperty(p.enableComputeLightEvaluation, computeLightEvaluationContent, withOverride, a => p.overridesComputeLightEvaluation = a, () => p.overridesComputeLightEvaluation, null);
-                GUILayout.BeginVertical();
+                area.Add(p.enableFptlForForwardOpaque, fptlForForwardOpaqueContent, a => p.overridesFptlForForwardOpaque = a, () => p.overridesFptlForForwardOpaque);
+                area.Add(p.enableBigTilePrepass, bigTilePrepassContent, a => p.overridesBigTilePrepass = a, () => p.overridesBigTilePrepass);
+                area.Add(p.enableComputeLightEvaluation, computeLightEvaluationContent, a => p.overridesComputeLightEvaluation = a, () => p.overridesComputeLightEvaluation);
                 if (s.isSectionExpandedComputeLightEvaluation.target)
                 {
-                    EditorGUI.indentLevel++;
-                    FrameSettingsUI.DrawProperty(p.enableComputeLightVariants, computeLightVariantsContent, withOverride, a => p.overridesComputeLightVariants = a, () => p.overridesComputeLightVariants, null);
-                    FrameSettingsUI.DrawProperty(p.enableComputeMaterialVariants, computeMaterialVariantsContent, withOverride, a => p.overridesComputeMaterialVariants  = a, () => p.overridesComputeMaterialVariants, null);
-                    EditorGUI.indentLevel--;
+                    area.Add(p.enableComputeLightVariants, computeLightVariantsContent, a => p.overridesComputeLightVariants = a, () => p.overridesComputeLightVariants, indent: 1);
+                    area.Add(p.enableComputeMaterialVariants, computeMaterialVariantsContent, a => p.overridesComputeMaterialVariants = a, () => p.overridesComputeMaterialVariants, indent: 1);
                 }
-                GUILayout.EndVertical();
             }
-            GUILayout.EndVertical();
 
-            //EditorGUI.indentLevel--;
+            area.Draw(withOverride);
         }
     }
 }

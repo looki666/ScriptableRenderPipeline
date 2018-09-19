@@ -36,7 +36,5 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
         static readonly GUIContent atmosphericScatteringContent = CoreEditorUtils.GetContent("Enable Atmospheric Scattering");
         static readonly GUIContent volumetricContent = CoreEditorUtils.GetContent("    Enable Volumetric");
         static readonly GUIContent lightLayerContent = CoreEditorUtils.GetContent("Enable LightLayers");
-
-        static readonly GUIContent overrideTooltip = CoreEditorUtils.GetContent("|Override this setting component.");
     }
 }

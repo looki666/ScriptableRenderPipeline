@@ -1944,6 +1944,11 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
             }
         }
 
+        Vector2Int m_ColorPyramidSizeV2I = new Vector2Int();
+        Vector4 m_ColorSizeV4F = new Vector4();
+        Vector4 m_ColorScaleLod = new Vector4();
+        Vector4 m_ColorScale = new Vector4();
+
         void RenderColorPyramid(HDCamera hdCamera, CommandBuffer cmd, bool isPreRefraction)
         {
             if (isPreRefraction)
@@ -1962,16 +1967,19 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
 
             using (new ProfilingSample(cmd, "Color Gaussian MIP Chain", CustomSamplerId.ColorPyramid))
             {
-                var size = new Vector2Int(hdCamera.actualWidth, hdCamera.actualHeight);
-                lodCount = m_MipGenerator.RenderColorGaussianPyramid(cmd, size, m_CameraColorBuffer, m_CameraColorBufferMipChain);
+                m_ColorPyramidSizeV2I.Set(hdCamera.actualWidth, hdCamera.actualHeight);
+                lodCount = m_MipGenerator.RenderColorGaussianPyramid(cmd, m_ColorPyramidSizeV2I, m_CameraColorBuffer, m_CameraColorBufferMipChain);
             }
 
             float scaleX = hdCamera.actualWidth / (float)m_CameraColorBufferMipChain.rt.width;
             float scaleY = hdCamera.actualHeight / (float)m_CameraColorBufferMipChain.rt.height;
             cmd.SetGlobalTexture(HDShaderIDs._ColorPyramidTexture, m_CameraColorBufferMipChain);
-            cmd.SetGlobalVector(HDShaderIDs._ColorPyramidSize, new Vector4(hdCamera.actualWidth, hdCamera.actualHeight, 1f / hdCamera.actualWidth, 1f / hdCamera.actualHeight));
-            cmd.SetGlobalVector(HDShaderIDs._ColorPyramidScale, new Vector4(scaleX, scaleY, lodCount, 0.0f));
-            PushFullScreenDebugTextureMip(hdCamera, cmd, m_CameraColorBufferMipChain, lodCount, new Vector4(scaleX, scaleY, 0f, 0f), isPreRefraction ? FullScreenDebugMode.PreRefractionColorPyramid : FullScreenDebugMode.FinalColorPyramid);
+            m_ColorSizeV4F.Set(hdCamera.actualWidth, hdCamera.actualHeight, 1f / hdCamera.actualWidth, 1f / hdCamera.actualHeight);
+            m_ColorScaleLod.Set(scaleX, scaleY, lodCount, 0.0f);
+            m_ColorScale.Set(scaleX, scaleY, 0f, 0f);
+            cmd.SetGlobalVector(HDShaderIDs._ColorPyramidSize, m_ColorSizeV4F);
+            cmd.SetGlobalVector(HDShaderIDs._ColorPyramidScale, m_ColorScaleLod);
+            PushFullScreenDebugTextureMip(hdCamera, cmd, m_CameraColorBufferMipChain, lodCount, m_ColorScale, isPreRefraction ? FullScreenDebugMode.PreRefractionColorPyramid : FullScreenDebugMode.FinalColorPyramid);
         }
 
         void GenerateDepthPyramid(HDCamera hdCamera, CommandBuffer cmd, FullScreenDebugMode debugMode)

@@ -164,7 +164,11 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
         public HDCamera(Camera cam)
         {
             camera = cam;
+
             frustum = new Frustum();
+            frustum.planes = new Plane[6];
+            frustum.corners = new Vector3[8];
+
             frustumPlaneEquations = new Vector4[6];
 
             viewMatrixStereo = new Matrix4x4[2];
@@ -323,7 +327,7 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
             float orthoWidth  = orthoHeight * camera.aspect;
             unity_OrthoParams = new Vector4(orthoWidth, orthoHeight, 0, camera.orthographic ? 1 : 0);
 
-            frustum = Frustum.Create(viewProjMatrix, depth_0_1, reverseZ);
+            Frustum.Create(frustum, viewProjMatrix, depth_0_1, reverseZ);
 
             // Left, right, top, bottom, near, far.
             for (int i = 0; i < 6; i++)
@@ -446,7 +450,7 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
             var stereoCombinedProjMatrix = cullingParams.cullStereoProj;
             projMatrix = GL.GetGPUProjectionMatrix(stereoCombinedProjMatrix, true);
 
-            frustum = Frustum.Create(viewProjMatrix, true, true);
+            Frustum.Create(frustum, viewProjMatrix, true, true);
 
             // Left, right, top, bottom, near, far.
             for (int i = 0; i < 6; i++)

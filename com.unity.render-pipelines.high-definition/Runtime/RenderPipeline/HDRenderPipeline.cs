@@ -704,6 +704,12 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
             m_ShadowSettings.enabled = hdCamera.frameSettings.enableShadow;
         }
 
+        public void SetMicroShadowingSettings(CommandBuffer cmd)
+        {
+            MicroShadowing microShadowingSettings = VolumeManager.instance.stack.GetComponent<MicroShadowing>();
+            cmd.SetGlobalFloat(HDShaderIDs._MicroShadowingOpacity, microShadowingSettings.enable ? microShadowingSettings.opacity : 0.0f);
+        }
+
         public void ConfigureKeywords(bool enableBakeShadowMask, HDCamera hdCamera, CommandBuffer cmd)
         {
             // Globally enable (for GBuffer shader and forward lit (opaque and transparent) the keyword SHADOWS_SHADOWMASK
@@ -1154,6 +1160,8 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
                         // Render the volumetric lighting.
                         // The pass requires the volume properties, the light list and the shadows, and can run async.
                         m_VolumetricLightingSystem.VolumetricLightingPass(hdCamera, cmd, m_FrameCount);
+
+                        SetMicroShadowingSettings(cmd);
 
                         RenderDeferredLighting(hdCamera, cmd);
 

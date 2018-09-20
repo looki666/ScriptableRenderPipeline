@@ -72,7 +72,6 @@ float3 GetDirectionalShadowClosestSample( ShadowContext shadowContext, real3 pos
 
 #endif
 
-
 // example of overriding punctual lights
 #ifdef  SHADOW_DISPATCH_USE_CUSTOM_PUNCTUAL
 float GetPunctualShadowAttenuation( ShadowContext shadowContext, float3 positionWS, float3 normalWS, int shadowDataIndex, float3 L, float L_dist )
@@ -122,6 +121,14 @@ float GetPunctualShadowClosestDistance( ShadowContext shadowContext, SamplerStat
 }
 
 #endif
+
+// From "The Technical Art of Uncharted 4" [Brinck and Maximov 2016]
+float GetMicroshadowing(float NdotL, float AO)
+{
+    float aperture = 2.0 * AO * AO;
+    float microshadow = saturate(NdotL + aperture - 1.0);
+    return lerp(1.0, microshadow, _MicroShadowOpacity);
+}
 
 // cleanup the defines
 #undef SHADOW_DISPATCH_DIR_TEX

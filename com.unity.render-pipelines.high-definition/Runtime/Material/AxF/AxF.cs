@@ -181,6 +181,7 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
             m_preIntegratedFGD_Ward = null;
             m_preIntegratedFGDMaterial_Ward = null;
             m_preIntegratedFGDMaterial_CookTorrance = null;
+            m_precomputedFGDTablesAreInit = false;
 
             // LTC data
             CoreUtils.Destroy(m_LtcData);

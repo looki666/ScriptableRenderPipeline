@@ -78,6 +78,8 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
         // Material
         public Shader preIntegratedFGD_GGXDisneyDiffuse;
         public Shader preIntegratedFGD_CharlieFabricLambert;
+        public Shader preIntegratedFGD_Ward;
+        public Shader preIntegratedFGD_CookTorrance;
 
         // Utilities / Core
         public ComputeShader encodeBC6HCS;
@@ -88,6 +90,7 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
         public Shader shadowClearShader;
         public ComputeShader shadowBlurMoments;
         public Shader debugShadowMapShader;
+        public Shader debugHDShadowMapShader;
 
         // Decal
         public Shader decalNormalBuffer;
@@ -118,12 +121,13 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
         {
             // Load default renderPipelineResources / Material / Shader
             string HDRenderPipelinePath = HDUtils.GetHDRenderPipelinePath() + "Runtime/";
-            string CorePath = HDUtils.GetCorePath();
+            string CorePath = HDUtils.GetHDRenderPipelinePath() + "CoreRP/"; // HDUtils.GetCorePath(); // All CoreRP ahve been move to HDRP currently.
 
             defaultDiffuseMaterial = Load<Material>(HDRenderPipelinePath + "RenderPipelineResources/DefaultHDMaterial.mat");
             defaultMirrorMaterial = Load<Material>(HDRenderPipelinePath + "RenderPipelineResources/DefaultHDMirrorMaterial.mat");
-
             defaultDecalMaterial = Load<Material>(HDRenderPipelinePath + "RenderPipelineResources/DefaultHDDecalMaterial.mat");
+            defaultTerrainMaterial = Load<Material>(HDRenderPipelinePath + "RenderPipelineResources/DefaultHDTerrainMaterial.mat");
+ 
             defaultShader = Load<Shader>(HDRenderPipelinePath + "Material/Lit/Lit.shader");
 
             debugFontTexture = Load<Texture2D>(HDRenderPipelinePath + "RenderPipelineResources/DebugFont.tga");
@@ -180,6 +184,8 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
             // Material
             preIntegratedFGD_GGXDisneyDiffuse = Load<Shader>(HDRenderPipelinePath + "Material/PreIntegratedFGD/PreIntegratedFGD_GGXDisneyDiffuse.shader");
             preIntegratedFGD_CharlieFabricLambert = Load<Shader>(HDRenderPipelinePath + "Material/PreIntegratedFGD/PreIntegratedFGD_CharlieFabricLambert.shader");
+            preIntegratedFGD_CookTorrance = Load<Shader>(HDRenderPipelinePath + "Material/AxF/PreIntegratedFGD_CookTorrance.shader");
+            preIntegratedFGD_Ward = Load<Shader>(HDRenderPipelinePath + "Material/AxF/PreIntegratedFGD_Ward.shader");
 
             // Utilities / Core
             encodeBC6HCS = Load<ComputeShader>(CorePath + "CoreResources/EncodeBC6H.compute");
@@ -190,6 +196,7 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
             shadowClearShader = Load<Shader>(CorePath + "Shadow/ShadowClear.shader");
             shadowBlurMoments = Load<ComputeShader>(CorePath + "Shadow/ShadowBlurMoments.compute");
             debugShadowMapShader = Load<Shader>(CorePath + "Shadow/DebugDisplayShadowMap.shader");
+            debugHDShadowMapShader = Load<Shader>(HDRenderPipelinePath + "Shadows/DebugDisplayHDShadowMap.shader");
 
             // decal
             decalNormalBuffer = Load<Shader>(HDRenderPipelinePath + "Material/Decal/DecalNormalBuffer.shader");

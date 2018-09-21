@@ -129,31 +129,21 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
         // See SetSHEMapConstants() in "Stupid Spherical Harmonics Tricks".
         public static void PackCoefficients(Vector4[] packedCoeffs, SphericalHarmonicsL2 sh)
         {
-            //Vector4[] coeffs = new Vector4[7];
 
             // Constant + linear
             for (int c = 0; c < 3; c++)
             {
-                packedCoeffs[c].x = sh[c, 3];
-                packedCoeffs[c].y = sh[c, 1];
-                packedCoeffs[c].z = sh[c, 2];
-                packedCoeffs[c].w = sh[c, 0] - sh[c, 6];
+                packedCoeffs[c].Set(sh[c, 3], sh[c, 1], sh[c, 2], sh[c, 0] - sh[c, 6]);
             }
 
             // Quadratic (4/5)
             for (int c = 0; c < 3; c++)
             {
-                packedCoeffs[3 + c].x = sh[c, 4];
-                packedCoeffs[3 + c].y = sh[c, 5];
-                packedCoeffs[3 + c].z = sh[c, 6] * 3.0f;
-                packedCoeffs[3 + c].w = sh[c, 7];
+                packedCoeffs[3 + c].Set(sh[c, 4], sh[c, 5], sh[c, 6] * 3.0f, sh[c, 7]);
             }
 
             // Quadratic (5)
-            packedCoeffs[6].x = sh[0, 8];
-            packedCoeffs[6].y = sh[1, 8];
-            packedCoeffs[6].z = sh[2, 8];
-            packedCoeffs[6].w = 1.0f;
+            packedCoeffs[6].Set(sh[0, 8], sh[1, 8], sh[2, 8], 1.0f);
         }
     }
 }

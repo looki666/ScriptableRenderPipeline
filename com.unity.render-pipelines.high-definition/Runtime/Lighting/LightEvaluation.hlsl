@@ -84,7 +84,7 @@ void EvaluateLight_Directional(LightLoopContext lightLoopContext, PositionInputs
 #ifndef _SURFACE_TYPE_TRANSPARENT
         shadow = min(shadow, GetContactShadow(lightLoopContext, lightData.contactShadowIndex));
 #endif
-        shadow *= GetMicroshadowing(NdotL, AOForMicroshadowing);
+        shadow *= GetMicroshadowing(NdotL, AOForMicroshadowing, _MicroShadowOpacity);
     }
 
     attenuation *= shadow;

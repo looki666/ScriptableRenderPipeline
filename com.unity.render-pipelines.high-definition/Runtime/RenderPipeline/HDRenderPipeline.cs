@@ -202,6 +202,10 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
         int[] m_DepthPyramidMipLevelOffsetsX;
         int[] m_DepthPyramidMipLevelOffsetsY;
 
+        Vector2Int m_PyramidSizeV2I = new Vector2Int();
+        Vector4 m_PyramidSizeV4F = new Vector4();
+        Vector4 m_PyramidScaleLod = new Vector4();
+        Vector4 m_PyramidScale = new Vector4();
 
         public Material GetBlitMaterial() { return m_Blit; }
 
@@ -804,6 +808,8 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
             bool assetFrameSettingsIsDirty = m_Asset.frameSettingsIsDirty;
             m_Asset.UpdateDirtyFrameSettings();
 
+            // GC.Alloc
+            // Array.InternalArray__iEnumerable_GetEnumerator 
             foreach (var camera in cameras)
             {
                 if (camera == null)
@@ -1948,11 +1954,6 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
             }
         }
 
-        Vector2Int m_PyramidSizeV2I = new Vector2Int();
-        Vector4 m_PyramidSizeV4F = new Vector4();
-        Vector4 m_PyramidScaleLod = new Vector4();
-        Vector4 m_PyramidScale = new Vector4();
-
         void RenderColorPyramid(HDCamera hdCamera, CommandBuffer cmd, bool isPreRefraction)
         {
             if (isPreRefraction)
@@ -1969,6 +1970,8 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
 
             int lodCount;
 
+            // GC.Alloc
+            // String.Format
             using (new ProfilingSample(cmd, "Color Gaussian MIP Chain", CustomSamplerId.ColorPyramid))
             {
                 m_PyramidSizeV2I.Set(hdCamera.actualWidth, hdCamera.actualHeight);
@@ -1992,6 +1995,8 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
 
             int mipCount = m_SharedRTManager.GetDepthBufferMipChainInfo().mipLevelCount;
 
+            // GC.Alloc
+            // String.Format
             using (new ProfilingSample(cmd, "Generate Depth Buffer MIP Chain", CustomSamplerId.DepthPyramid))
             {
                 m_MipGenerator.RenderMinDepthPyramid(cmd, m_SharedRTManager.GetDepthTexture(), m_SharedRTManager.GetDepthBufferMipChainInfo());

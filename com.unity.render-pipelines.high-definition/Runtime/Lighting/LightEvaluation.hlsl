@@ -27,7 +27,7 @@ float3 EvaluateCookie_Directional(LightLoopContext lightLoopContext, Directional
 // Note: When doing transmission we always have only one shadow sample to do: Either front or back. We use NdotL to know on which side we are
 void EvaluateLight_Directional(LightLoopContext lightLoopContext, PositionInputs posInput,
                                DirectionalLightData lightData, BuiltinData builtinData,
-                               float NdotL, float AOForMicroshadowing,
+                               float3 N, float3 L, float AOForMicroshadowing,
                                out float3 color, out float attenuation)
 {
     float3 positionWS = posInput.positionWS;
@@ -52,6 +52,7 @@ void EvaluateLight_Directional(LightLoopContext lightLoopContext, PositionInputs
 #endif
 
     // We test NdotL >= 0.0 to not sample the shadow map if it is not required.
+    float NdotL = dot(N, L);
     UNITY_BRANCH if (lightData.shadowIndex >= 0 && (NdotL >= 0.0))
     {
         shadow = lightLoopContext.shadowValue;

@@ -1065,7 +1065,7 @@ DirectLighting  EvaluateBSDF_Directional(LightLoopContext lightLoopContext,
     // color and attenuation are outputted  by EvaluateLight:
     float3  color;
     float   attenuation = 0;
-    EvaluateLight_Directional(lightLoopContext, posInput, lightData, builtinData, normalWS, lightWS, color, attenuation);
+    EvaluateLight_Directional(lightLoopContext, posInput, lightData, builtinData, normalWS, lightWS, bsdfData.specularOcclusion, color, attenuation);
 
     float intensity = max(0, attenuation * NdotL); // Warning: attenuation can be greater than 1 due to the inverse square attenuation (when position is close to light)
 

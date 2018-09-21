@@ -122,13 +122,6 @@ float GetPunctualShadowClosestDistance( ShadowContext shadowContext, SamplerStat
 
 #endif
 
-// From "The Technical Art of Uncharted 4" [Brinck and Maximov 2016]
-float GetMicroshadowing(float NdotL, float AO)
-{
-    float aperture = 2.0 * AO * AO;
-    float microshadow = saturate(NdotL + aperture - 1.0);
-    return lerp(1.0, microshadow, _MicroShadowOpacity);
-}
 
 // cleanup the defines
 #undef SHADOW_DISPATCH_DIR_TEX

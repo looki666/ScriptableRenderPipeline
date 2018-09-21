@@ -104,6 +104,15 @@ void ApplyAmbientOcclusionFactor(AmbientOcclusionFactor aoFactor, inout BuiltinD
     lighting.direct.diffuse *= aoFactor.directAmbientOcclusion;
 }
 
+// From "The Technical Art of Uncharted 4" [Brinck and Maximov 2016]
+float GetMicroshadowing(float NdotL, float AO)
+{
+    float aperture = 2.0 * AO * AO;
+    float microshadow = saturate(NdotL + aperture - 1.0);
+    return lerp(1.0, microshadow, _MicroShadowOpacity);
+}
+
+
 #ifdef DEBUG_DISPLAY
 // mipmapColor is color use to store texture streaming information in XXXData.hlsl (look for DEBUGMIPMAPMODE_NONE)
 void PostEvaluateBSDFDebugDisplay(  AmbientOcclusionFactor aoFactor, BuiltinData builtinData, AggregateLighting lighting, float3 mipmapColor,

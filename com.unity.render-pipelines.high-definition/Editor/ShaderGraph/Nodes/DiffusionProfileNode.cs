@@ -7,7 +7,7 @@ using UnityEngine.Experimental.Rendering.HDPipeline;
 
 namespace UnityEditor.ShaderGraph
 {
-    [Title("Input", "PBR", "Diffusion Profile")]
+    [Title("Input", "HDRP", "Diffusion Profile")]
     public class DiffusionProfileNode : AbstractMaterialNode, IGeneratesBodyCode
     {
         public DiffusionProfileNode()

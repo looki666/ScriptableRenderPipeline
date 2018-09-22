@@ -19,12 +19,22 @@ namespace UnityEditor.ShaderGraph
             var material = (Material)materialEditor.target;
             if (material != null)
             {
-                bool enabled = material.GetShaderPassEnabled(HDShaderPassNames.s_MotionVectorsStr);
-                EditorGUI.BeginChangeCheck();
-                enabled = EditorGUILayout.Toggle("Enable Motion Vector For Vertex Animation", enabled);
-                if (EditorGUI.EndChangeCheck())
+                string materialTag = "MotionVector";
+                string tag = material.GetTag(materialTag, false, "Nothing");
+                if (tag == "Nothing")
                 {
-                    material.SetShaderPassEnabled(HDShaderPassNames.s_MotionVectorsStr, enabled);
+                    material.SetShaderPassEnabled(HDShaderPassNames.s_MotionVectorsStr, false);
+                    material.SetOverrideTag(materialTag, "User");
+                }
+                else
+                {
+                    bool enabled = material.GetShaderPassEnabled(HDShaderPassNames.s_MotionVectorsStr);
+                    EditorGUI.BeginChangeCheck();
+                    enabled = EditorGUILayout.Toggle("Enable Motion Vector For Vertex Animation", enabled);
+                    if (EditorGUI.EndChangeCheck())
+                    {
+                        material.SetShaderPassEnabled(HDShaderPassNames.s_MotionVectorsStr, enabled);
+                    }
                 }
             }
         }

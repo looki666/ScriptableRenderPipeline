@@ -224,7 +224,7 @@ namespace UnityEditor.ShaderGraph.Drawing
                 });
             }
 
-            if (m_Node.materialType == HDLitMasterNode.MaterialType.SpecularColor)
+            if (m_Node.materialType == HDLitMasterNode.MaterialType.Specular)
             {
                 ps.Add(new PropertyRow(CreateLabel("Energy Conserving Specular", indentLevel)), (row) =>
                 {

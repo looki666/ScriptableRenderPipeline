@@ -39,7 +39,7 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
             },
             PixelShaderSlots = new List<int>()
             {
-                HDLitMasterNode.BaseColorSlotId,
+                HDLitMasterNode.AlbedoSlotId,
                 HDLitMasterNode.NormalSlotId,
                 HDLitMasterNode.BentNormalSlotId,
                 HDLitMasterNode.TangentSlotId,
@@ -120,7 +120,7 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
             },
             PixelShaderSlots = new List<int>()
             {
-                HDLitMasterNode.BaseColorSlotId,
+                HDLitMasterNode.AlbedoSlotId,
                 HDLitMasterNode.NormalSlotId,
                 HDLitMasterNode.BentNormalSlotId,
                 HDLitMasterNode.TangentSlotId,
@@ -397,7 +397,7 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
             },
             PixelShaderSlots = new List<int>()
             {
-                HDLitMasterNode.BaseColorSlotId,
+                HDLitMasterNode.AlbedoSlotId,
                 HDLitMasterNode.NormalSlotId,
                 HDLitMasterNode.BentNormalSlotId,
                 HDLitMasterNode.TangentSlotId,
@@ -461,7 +461,7 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
             },
             PixelShaderSlots = new List<int>()
             {
-                HDLitMasterNode.BaseColorSlotId,
+                HDLitMasterNode.AlbedoSlotId,
                 HDLitMasterNode.NormalSlotId,
                 HDLitMasterNode.BentNormalSlotId,
                 HDLitMasterNode.TangentSlotId,
@@ -595,7 +595,7 @@ namespace UnityEditor.Experimental.Rendering.HDPipeline
                 case HDLitMasterNode.MaterialType.Iridescence:
                     activeFields.Add("Material.Iridescence");
                     break;
-                case HDLitMasterNode.MaterialType.SpecularColor:
+                case HDLitMasterNode.MaterialType.Specular:
                     activeFields.Add("Material.SpecularColor");
                     break;
                 case HDLitMasterNode.MaterialType.Standard:
